@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostCreateComponent implements OnInit {
 
+  newPost: string = "No Message";
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onAddPost(message: string) {
+    this.newPost = message;
   }
 
 }
