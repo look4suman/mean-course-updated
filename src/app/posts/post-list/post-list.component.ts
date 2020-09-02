@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IPost } from '../../models/post'
+import { Post } from '../post.model';
 
 @Component({
   selector: 'app-post-list',
@@ -7,7 +7,7 @@ import { IPost } from '../../models/post'
   styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit {
-  @Input() posts: IPost[] = [];
+  @Input() posts: Post[] = [];
 
   constructor() { }
 

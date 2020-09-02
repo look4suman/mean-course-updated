@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { IPost } from '../../models/post';
+import { Post } from '../post.model';
 
 @Component({
   selector: 'app-post-create',
@@ -19,7 +19,7 @@ export class PostCreateComponent implements OnInit {
   }
 
   onAddPost() {
-    const post: IPost = {
+    const post: Post = {
       title: this.enteredTitle,
       content: this.enteredContent
     };
