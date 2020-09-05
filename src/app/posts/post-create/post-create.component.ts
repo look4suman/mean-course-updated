@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { FormGroup, FormControl, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { Post } from '../post.model';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-post-create',
@@ -8,23 +10,34 @@ import { Post } from '../post.model';
 })
 export class PostCreateComponent implements OnInit {
 
-  enteredTitle: string = '';
-  enteredContent: string = '';
+  //@Output() postCreated = new EventEmitter<Post>();
+  postCreateForm: FormGroup;
 
-  @Output() postCreated = new EventEmitter();
 
-  constructor() { }
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
+    this.postCreateForm = new FormGroup({
+      enteredTitle: new FormControl(''),
+      enteredContent: new FormControl(''),
+    });
   }
 
-  onAddPost() {
+  onAddPost(form: FormGroup) {
+    if (!form.valid) {
+      return;
+    }
+
     const post: Post = {
-      title: this.enteredTitle,
-      content: this.enteredContent
+      title: form.value.enteredTitle,
+      content: form.value.enteredContent
     };
 
-    this.postCreated.emit(post);
+    this.postService.addPost(post);
+    form.reset
   }
+
+  get enteredTitle() { return this.postCreateForm.get('enteredTitle'); }
+  get enteredContent() { return this.postCreateForm.get('enteredContent'); }
 
 }
