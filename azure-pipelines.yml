@@ -23,7 +23,7 @@ steps:
   displayName: 'AzureBlob File Copy'
   inputs:
     SourcePath: dist/AngularDemo
-    azureSubscription: 'Visual Studio Enterprise'
+    azureSubscription: '隨用隨付'
     Destination: AzureBlob
-    storage: dotnetthoughts
+    storage: sumentest1
     ContainerName: '$web'
