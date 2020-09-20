@@ -29,6 +29,7 @@ export class PostCreateComponent implements OnInit {
     }
 
     const post: Post = {
+      id: null,
       title: form.value.enteredTitle,
       content: form.value.enteredContent
     };
