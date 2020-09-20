@@ -1,29 +1,17 @@
+trigger:
+- master
+
 pool:
-  name: Azure Pipelines
-  demands:
-  - npm
-  - azureps
+  vmImage: 'ubuntu-latest'
 
 steps:
-- task: Npm@1
-  displayName: 'npm install'
+- task: NodeTool@0
   inputs:
-    workingDir: .
-    verbose: false
+    versionSpec: '10.x'
+  displayName: 'Setup Environment'
 
-- task: Npm@1
-  displayName: 'npm custom'
-  inputs:
-    command: custom
-    workingDir: .
-    verbose: false
-    customCommand: 'run build'
+- script: npm install
+  displayName: 'Install Dependencies'
 
-- task: AzureFileCopy@2
-  displayName: 'AzureBlob File Copy'
-  inputs:
-    SourcePath: dist/AngularDemo
-    azureSubscription: '隨用隨付'
-    Destination: AzureBlob
-    storage: sumentest1
-    ContainerName: '$web'
+- script: npx ng build --prod
+  displayName: 'Build'
