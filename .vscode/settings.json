@@ -1,0 +1,8 @@
+{
+  "editor.codeActionsOnSave": {},
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
+  "files.exclude": {
+    "node_modules": true
+  }
+}

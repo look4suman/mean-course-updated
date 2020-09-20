@@ -1,6 +1,18 @@
 <mat-card>
-  <mat-form-field class="example-form-field">
-    <textarea rows="6" matInput [(ngModel)]="newPost"></textarea>
-  </mat-form-field>
-  <button mat-raised-button (click)="onAddPost(newPost)">Save Post</button>
+  <form [formGroup]="postCreateForm" (ngSubmit)="onAddPost(postCreateForm)">
+    <mat-form-field>
+      <input type="text" matInput formControlName="enteredTitle" required>
+      <mat-error *ngIf="enteredTitle.invalid && (enteredTitle.dirty || enteredTitle.touched)">
+        Please enter a valid Title
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea rows="6" matInput formControlName="enteredContent" required>
+      </textarea>
+      <mat-error *ngIf="enteredContent.invalid && (enteredTitle.dirty || enteredTitle.touched)">
+        Please enter a valid Content
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button>Save Post</button>
+  </form>
 </mat-card>

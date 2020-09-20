@@ -1,21 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { IPost } from '../../models/post'
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Post } from '../post.model';
+import { PostService } from '../post.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit {
-  posts: IPost[] = [];
-  // posts: IPost[] = [
-  //   { title: 'First Post', content: 'This is First Post"s content' },
-  //   { title: 'Second Post', content: 'This is Second Post"s content' },
-  //   { title: 'Third Post', content: 'This is Third Post"s content' }
-  // ];
-  constructor() { }
+export class PostListComponent implements OnInit, OnDestroy {
+  posts: Post[] = [];
+  postSub: Subscription;
+
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
+    this.posts = this.postService.getPosts();
+    this.postSub = this.postService.getPostUpdateListener()
+      .subscribe((posts: Post[]) => {
+        this.posts = posts;
+      });
   }
 
+  ngOnDestroy(): void {
+    this.postSub.unsubscribe();
+  }
 }
